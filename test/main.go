@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"test/sorts"
 	"time"
 )
 
@@ -10,28 +11,14 @@ func main() {
 	list := []int{}
 
 	for i := 0; i < 10; i++ {
-		list = append(list, genRandom(10, 0))
+		list = append(list, genRandom(1000, 0))
 	}
 	fmt.Printf("pre. sort: %v\n", list)
 
-	elapsed, _ := execTime(bubbleSort, &list)
+	elapsed, _ := execTime(sorts.BubbleSort, &list)
 	fmt.Printf("Exec time: %s\n", elapsed)
 
 	fmt.Printf("pos. sort: %v", list)
-}
-
-func bubbleSort(listPtr *[]int) bool {
-	swapped := true
-	for swapped {
-		swapped = false
-		for i := 0; i < len(*listPtr)-1; i++ {
-			if (*listPtr)[i] > (*listPtr)[i+1] {
-				swap(&(*listPtr)[i], &(*listPtr)[i+1])
-				swapped = true
-			}
-		}
-	}
-	return true
 }
 
 func execTime[In any, Out any](x func(In) Out, p In) (time.Duration, Out) {
